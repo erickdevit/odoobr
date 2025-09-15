@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: odoobr_db
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+  odoo:
+    image: odoobr:latest
+    container_name: odoobr_odoo
+    depends_on:
+      - db
+    ports:
+      - "8069:8069" # web
+      - "8072:8072" # longpolling
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./odoo.conf:/etc/odoo/odoo.conf
+      - ./addons:/mnt/extra-addons/custom
+    restart: always
+
+volumes:
+  db_data:
+  odoo_data:
