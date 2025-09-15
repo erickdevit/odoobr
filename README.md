@@ -26,7 +26,6 @@ Este projeto encapsula uma instância do Odoo 16 e um banco de dados PostgreSQL 
 -   **Localização Brasileira**: Inclui os repositórios essenciais da OCA (`l10n-brazil`, `account-payment`, etc.).
 -   **Dockerizado**: Ambiente isolado, portátil e fácil de replicar.
 -   **Pronto para Desenvolvimento**: Monte seus addons customizados e veja as alterações em tempo real.
--   **Inicialização Robusta**: Utiliza um `entrypoint` para garantir que o Odoo só inicie após o banco de dados estar pronto, evitando erros de conexão.
 
 ## 📋 Pré-requisitos
 
@@ -34,7 +33,7 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
 
 -   Docker
 -   Docker Compose
--   Git (para clonar o projeto)
+-   Git 
 
 ## ⚙️ Configuração Inicial
 
@@ -42,7 +41,7 @@ Siga estes passos para preparar seu ambiente local.
 
 1.  **Clone o Repositório**
     ```bash
-    git clone <URL_DO_SEU_REPOSITORIO>
+    git clone https://github.com/erickdevit/odoobr.git
     cd odoobr
     ```
 
@@ -125,7 +124,6 @@ Após iniciar, acesse o Odoo em seu navegador: **http://localhost:8069**
 -   `Dockerfile`: Define a receita para construir a imagem Docker do Odoo, instalando todas as dependências do sistema, pacotes Python e clonando os repositórios da OCA.
 -   `docker-compose.yml`: Orquestra a inicialização e a rede entre os serviços `odoo` e `db` (PostgreSQL).
 -   `odoo.conf`: Arquivo de configuração principal do Odoo. É montado como um volume para permitir alterações sem reconstruir a imagem.
--   `entrypoint.sh`: Script executado na inicialização do container. Ele aguarda o banco de dados ficar disponível antes de iniciar o processo do Odoo.
 -   `requirements.txt`: Lista de dependências Python necessárias para os módulos da localização brasileira.
 -   `addons/custom`: Diretório local para seus módulos customizados. É montado em `/mnt/extra-addons/custom` dentro do container.
 
@@ -148,3 +146,44 @@ Se você precisa atualizar a imagem base (por exemplo, adicionar uma nova depend
     docker login
     docker push seu-usuario/odoobr:sua-tag
     ```
+
+## 🎯 Funcionalidades
+
+#### Localização Brasileira
+-   ✅ Plano de contas brasileiro
+-   ✅ Regimes fiscais (Simples, Lucro Presumido, Real)
+-   ✅ CNAE e códigos fiscais
+-   ✅ Validações de CPF/CNPJ
+
+#### Pagamentos
+-   ✅ Módulos de pagamento bancário
+-   ✅ Integração com bancos brasileiros
+-   ✅ Gestão de parceiros
+
+
+## 🤝 Contribuição
+
+1.  Fork o projeto
+2.  Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3.  Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4.  Push para a branch (`git push origin feature/AmazingFeature`)
+5.  Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 👨‍💻 Autor
+
+**Erick Dev** - [GitHub](https://github.com/erickdevit)
+
+## 🙏 Agradecimentos
+
+-   [OCA (Odoo Community Association)](https://odoo-community.org/)
+-   [l10n-brazil](https://github.com/OCA/l10n-brazil)
+-   [account-payment](https://github.com/OCA/account-payment)
+-   [bank-payment](https://github.com/OCA/bank-payment)
+
+---
+
+⭐ **Se este projeto te ajudou, considere dar uma estrela!**
