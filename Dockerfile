@@ -57,16 +57,16 @@ RUN python3 -m pip install --upgrade pip setuptools wheel && \
 RUN apt install postgresql -y
 
 # Instala o Odoo
-ENV ODOO_VERSION 16.0
-ARG ODOO_RELEASE=20250909
-ARG ODOO_SHA=86371b3510555e464caae06eba3373f75fbbb4f5
+ENV ODOO_VERSION 18.0
+ARG ODOO_RELEASE=20251121
+ARG ODOO_SHA=a13f7fb056248eb3941cc45f33ddf63917484bb3
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
     && apt-get -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
 
-# Copia o entrypoint e o arquivo de configuração do Odoo
+# Copia o arquivo de configuração do Odoo
 
 COPY ./odoo.conf /etc/odoo/
 
@@ -76,10 +76,10 @@ RUN chown odoo /etc/odoo/odoo.conf \
     
 
 # Clonando repositórios OCA necessários
-RUN git clone --depth=1 --branch=16.0 https://github.com/OCA/l10n-brazil.git /mnt/extra-addons/l10n-brazil && \
-    git clone --depth=1 --branch=16.0 https://github.com/OCA/product-attribute.git /mnt/extra-addons/product-attribute && \
-    git clone --depth=1 --branch=16.0 https://github.com/OCA/account-payment.git /mnt/extra-addons/account-payment && \
-    git clone --depth=1 --branch=16.0 https://github.com/OCA/bank-payment.git /mnt/extra-addons/bank-payment && \
+RUN git clone --depth=1 --branch=18.0 https://github.com/OCA/l10n-brazil.git /mnt/extra-addons/l10n-brazil && \
+    git clone --depth=1 --branch=18.0 https://github.com/OCA/product-attribute.git /mnt/extra-addons/product-attribute && \
+    git clone --depth=1 --branch=18.0 https://github.com/OCA/account-payment.git /mnt/extra-addons/account-payment && \
+    git clone --depth=1 --branch=18.0 https://github.com/OCA/bank-payment.git /mnt/extra-addons/bank-payment && \
     pip3 install --no-cache-dir -r /mnt/extra-addons/l10n-brazil/requirements.txt && \
     sed -i 's/list | tuple/(list, tuple)/g' /mnt/extra-addons/l10n-brazil/l10n_br_base/models/party_mixin.py
 

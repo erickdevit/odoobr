@@ -1,4 +1,4 @@
-# Fixa a versão do lxml para compatibilidade com Odoo 16
+# Fixa a versão do lxml para compatibilidade com Odoo 18
 lxml<5.0.0
 # Dependencias da localização brasileira
 erpbrasil.base>=2.3.0
@@ -10,3 +10,4 @@ brazilcep
 email-validator
 nfelib<=2.0.7
 workalendar
+packaging

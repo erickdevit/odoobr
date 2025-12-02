@@ -14,6 +14,7 @@ services:
 
   odoo:
     image: odoobr:latest
+    build: .
     container_name: odoobr_odoo
     depends_on:
       - db
